@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Coding Quiz</title>
+
+    <link rel="stylesheet" href="./assets/css/styles.css" />
+  </head>
+
+  <body>
+    <div class="scores"><a href="highscores.html">View Highscores</a></div>
+
+    <div class="timer">Time: <span id="time">0</span></div>
+
+    <div class="wrapper">
+      <div id="start-screen" class="start">
+        <h1>Coding Quiz Challenge</h1>
+        <p>
+          Try to answer the following code-related questions within the time
+          limit. Keep in mind that incorrect answers will penalize your
+          score/time by ten seconds!
+        </p>
+        <button id="start">Start Quiz</button>
+      </div>
+
+      <div id="questions" class="hide">
+        <h2 id="question-title"></h2>
+        <div id="choices" class="choices"></div>
+      </div>
+
+      <div id="end-screen" class="hide">
+        <h2>All done!</h2>
+        <p>Your final score is <span id="final-score"></span>.</p>
+        <p>
+          Enter initials: <input type="text" id="initials" max="3" />
+          <button id="submit">Submit</button>
+        </p>
+      </div>
+
+      <div id="feedback" class="feedback hide"></div>
+    </div>
+
+    <script src="./assets/js/questions.js"></script>
+    <script src="./assets/js/logic.js"></script>
+  </body>
+</html>
+
+
+<!-- set of questions -> array of objects
+each question needs the following 
+  question text
+  set of answers
+  which answer is correct
+
+landing page 
+  explanation of quiz
+  start button 
+
+click the start button
+  landing page goes away
+  timer starts
+  first question appears (with its answers)
+
+for each question:
+  user clicks and answer
+  their choice is compared to the correct answer as stored in the question's object
+  if corret, tell them
+  if incorrect, tell them AND subtract ime from timer
+  optional: play a sound for correct or incorrect 
+  either way, the question dissapears after a few seconds and the next question appears
+
+for the last question:
+  timer stops
+  question disappears
+  form appears for user to enter their initials
+  display their score
+
+user submits form 
+  initials and score gets scored in local storage 
+  user is taken to the high scores page 
+  high scored are listed, sorted highest to lowest
+  USER HAS OPTION TO TAKE THE QUIZ AGAIN-->
+
+  
