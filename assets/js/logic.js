@@ -1,12 +1,4 @@
-// <!-- set of questions -> array of objects
-// each question needs the following 
-//   question text
-//   set of answers
-//   which answer is correct
 
-// landing page 
-//   explanation of quiz
-//   start button 
 
 // click the start button
 //   landing page goes away
@@ -33,4 +25,31 @@
 //   high scored are listed, sorted highest to lowest
 //   USER HAS OPTION TO TAKE THE QUIZ AGAIN-->
 
-  
+// Query selectors
+const displayTimeLeft = document.querySelector(".timer")
+const startButton = document.querySelector("#start");
+
+let secondsLeft = 60;
+
+// this is for the timer at the top right corner
+function startTimer() {
+  // Sets interval in variable
+  const timerInterval = setInterval(function() {
+    secondsLeft--;
+    displayTimeLeft.textContent = `Time: ${secondsLeft}`;
+
+    if(secondsLeft == 0) {
+      // Stops execution of action
+      clearInterval(timerInterval);
+      // Calls to end quiz
+      return;
+    }
+  }, 1000);
+}
+
+// Event to start quiz 
+startButton.addEventListener("click", function() {
+  startTimer();
+  console.log(secondsLeft);
+})
+
