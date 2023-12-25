@@ -16,10 +16,14 @@
 
     <div class="wrapper">
       <div id="start-screen" class="start">
-        <h1>Coding Quiz Challenge</h1>
+        <h1>JavaScript Quiz</h1>
         <p>
           Try to answer the following JavaScript related questions within the time
-          limit. There are 5 questions and you have 1 minute! Keep in mind that incorrect answers will penalize your
+          limit. 
+          <br>
+          <br>
+          There are 5 questions and you have 1 minute.
+          Keep in mind that incorrect answers will penalize your
           score/time by ten seconds!
         </p>
         <button id="start">Start Quiz</button>
@@ -27,7 +31,7 @@
 
       <div id="questions" class="hide">
         <h2 id="question-title"></h2>
-        <div id="choices" class="choices"></div>
+        <div id="choices" class="choices">Choices</div>
       </div>
 
       <div id="end-screen" class="hide">
@@ -42,8 +46,8 @@
       <div id="feedback" class="feedback hide"></div>
     </div>
 
-    <script src="/assets/js/questions.js"></script>
-    <script src="/assets/js/logic.js"></script>
+    <script type="module" src="/assets/js/questions.js"></script>
+    <script type="module" src="/assets/js/logic.js"></script>
   </body>
 </html>
 
