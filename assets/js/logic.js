@@ -25,9 +25,18 @@
 //   high scored are listed, sorted highest to lowest
 //   USER HAS OPTION TO TAKE THE QUIZ AGAIN-->
 
+import { quizQuestions } from './questions.js';
+
 // Query selectors
 const displayTimeLeft = document.querySelector(".timer")
+
+// start screen
 const startButton = document.querySelector("#start");
+const landingPage = document.querySelector("#start-screen");
+
+// questions
+const questionsSection = document.querySelector("#questions")
+const questionTitle = document.querySelector("#question-title")
 
 let secondsLeft = 60;
 
@@ -50,6 +59,53 @@ function startTimer() {
 // Event to start quiz 
 startButton.addEventListener("click", function() {
   startTimer();
-  console.log(secondsLeft);
+
+  // hide the landing page
+  landingPage.className = "hide";
+
+  startQuiz()
 })
 
+function startQuiz() {
+  // set questions class attribute to start (so question show)
+  questionsSection.className = "start";
+  
+  
+  // for loop to go through each question
+  for (let i = 0; i < quizQuestions.length; i++) {
+  
+  let question = quizQuestions[i].question;
+  questionTitle.textContent = `Question 1: ${question}`;
+  
+    // generate choices
+    let choices = quizQuestions[i].choices;
+    generateChoices(choices);
+    
+    // add logic for correct answer
+    if (userChoice == quizQuestions[i].correctAnswer) {
+      
+    }
+
+    }
+}
+
+
+function generateChoices(choices) {
+  
+  for (let i = 0; i < choices.length; i++) {
+    let choicesEl = document.createElement("li");
+    choicesEl.textContent = choices[i];
+    document.body.appendChild(choicesEl);
+
+    const selectButton = document.createElement("button");
+    selectButton.textContent = "Select";
+    choicesEl.appendChild(selectButton);
+
+    selectButton.addEventListener("click", function() {
+      let userChoice = choices[i];
+      return userChoice;
+    })
+  }
+
+  
+}
