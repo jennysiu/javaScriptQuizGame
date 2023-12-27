@@ -66,40 +66,53 @@ startButton.addEventListener("click", function() {
   displayQuestion()
 })
 
+let questionNumber = 0;
+let userChoice;
+
 function displayQuestion() {
   // set questions class attribute to start (so question displays)
   questionsSection.className = "start";
-  
-  // display question
-  let question = quizQuestions[0].question;
-  questionTitle.textContent = `Question 1: ${question}`;
-  
-  // display choices
-  let choices = quizQuestions[0].choices;
-  let userChoice;
-  
-  for (let i = 0; i < choices.length; i++) {
-    let choicesEl = document.createElement("button");
-    choicesEl.textContent = choices[i];
-    document.body.appendChild(choicesEl);
 
-    }
+  // display question
+  let question = quizQuestions[questionNumber].question;
+  questionTitle.textContent = `Question ${questionNumber + 1}: ${question}`;
+
+  // display choices
+  let choices = quizQuestions[questionNumber].choices;
+
+  for (let i = 0; i < choices.length; i++) {
+    let choiceButton = document.createElement("button");
+    choiceButton.textContent = choices[i];
+    document.body.appendChild(choiceButton);
+    userChoice = choices[i]; 
+
+    // user's answer
+    choiceButton.addEventListener("click", function() {
+    userChoice = choices[i]; 
+    console.log("User selected: " + userChoice);
+      // compare answer
+      if (userChoice == quizQuestions[0].correctAnswer) {
+          console.log("Correct!")
+        } else {
+          console.log("Wrong.")
+        }
+    
+    nextQuestion()
+    })
   }
 
-choices.addEventListener("click", function() {
-  userChoice = choices; 
-  console.log(userChoice)
-
-  // if (generateChoices(choices) = quizQuestions[0].correctAnswer) {
-  //   console.log("Correct!")
-  // } else {
-  //   console.log("Wrong.")
-  // }
   
-})
+
+}
 
 
 
+    // if (generateChoices(choices) = quizQuestions[0].correctAnswer) {
+    //   console.log("Correct!")
+    // } else {
+    //   console.log("Wrong.")
+    // }
+    
     // add logic for correct answer
     // if (userChoice == quizQuestions[i].correctAnswer) {
     //   console.log(quizQuestions[i].correctAnswer);
