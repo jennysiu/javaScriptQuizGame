@@ -68,7 +68,7 @@ startButton.addEventListener("click", function() {
 
 function startQuiz() {
   // set questions class attribute to start (so question show)
-  questionsSection.className = "start";
+  questionsSection.className == "start";
   
   
   // for loop to go through each question
@@ -79,18 +79,18 @@ function startQuiz() {
   
     // generate choices
     let choices = quizQuestions[i].choices;
-    generateChoices(choices);
-    
-    // add logic for correct answer
-    if (userChoice == quizQuestions[i].correctAnswer) {
-      
+    if (generateChoices(choices) = quizQuestions[i].correctAnswer) {
+      console.log("Correct!")
+    } else {
+      console.log("Wrong.")
     }
 
-    }
+
+  }
 }
 
-
 function generateChoices(choices) {
+  let userChoice;
   
   for (let i = 0; i < choices.length; i++) {
     let choicesEl = document.createElement("li");
@@ -101,11 +101,18 @@ function generateChoices(choices) {
     selectButton.textContent = "Select";
     choicesEl.appendChild(selectButton);
 
-    selectButton.addEventListener("click", function() {
-      let userChoice = choices[i];
+      // while (userChoice == null) 
+        selectButton.addEventListener("click", function() {
+        userChoice = choices[i];
+      
       return userChoice;
+      
     })
   }
-
   
 }
+
+    // add logic for correct answer
+    // if (userChoice == quizQuestions[i].correctAnswer) {
+    //   console.log(quizQuestions[i].correctAnswer);
+    // }
