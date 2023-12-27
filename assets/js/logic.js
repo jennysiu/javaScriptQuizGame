@@ -63,54 +63,42 @@ startButton.addEventListener("click", function() {
   // hide the landing page
   landingPage.className = "hide";
 
-  startQuiz()
+  displayQuestion()
 })
 
-function startQuiz() {
-  // set questions class attribute to start (so question show)
-  questionsSection.className == "start";
+function displayQuestion() {
+  // set questions class attribute to start (so question displays)
+  questionsSection.className = "start";
   
-  
-  // for loop to go through each question
-  for (let i = 0; i < quizQuestions.length; i++) {
-  
-  let question = quizQuestions[i].question;
+  // display question
+  let question = quizQuestions[0].question;
   questionTitle.textContent = `Question 1: ${question}`;
   
-    // generate choices
-    let choices = quizQuestions[i].choices;
-    if (generateChoices(choices) = quizQuestions[i].correctAnswer) {
-      console.log("Correct!")
-    } else {
-      console.log("Wrong.")
-    }
-
-
-  }
-}
-
-function generateChoices(choices) {
+  // display choices
+  let choices = quizQuestions[0].choices;
   let userChoice;
   
   for (let i = 0; i < choices.length; i++) {
-    let choicesEl = document.createElement("li");
+    let choicesEl = document.createElement("button");
     choicesEl.textContent = choices[i];
     document.body.appendChild(choicesEl);
 
-    const selectButton = document.createElement("button");
-    selectButton.textContent = "Select";
-    choicesEl.appendChild(selectButton);
-
-      // while (userChoice == null) 
-        selectButton.addEventListener("click", function() {
-        userChoice = choices[i];
-      
-      return userChoice;
-      
-    })
+    }
   }
+
+choices.addEventListener("click", function() {
+  userChoice = choices; 
+  console.log(userChoice)
+
+  // if (generateChoices(choices) = quizQuestions[0].correctAnswer) {
+  //   console.log("Correct!")
+  // } else {
+  //   console.log("Wrong.")
+  // }
   
-}
+})
+
+
 
     // add logic for correct answer
     // if (userChoice == quizQuestions[i].correctAnswer) {
