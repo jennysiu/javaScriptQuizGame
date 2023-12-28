@@ -7,11 +7,11 @@
 
 // for each question:
 //   !user clicks and answer
-//   their choice is compared to the correct answer as stored in the question's object
+//   !their choice is compared to the correct answer as stored in the question's object
 //   !if corret, tell them
 //   !if incorrect, tell them AND subtract ime from timer
 //   optional: play a sound for correct or incorrect 
-//   either way, the question dissapears after a few seconds and the next question appears
+//   !either way, the question dissapears after a few seconds and the next question appears
 
 // for the last question:
 //   timer stops
@@ -38,9 +38,12 @@ const landingPage = document.querySelector("#start-screen");
 const questionsSection = document.querySelector("#questions")
 const questionTitle = document.querySelector("#question-title")
 
+// assign global variables
 let secondsLeft = 60;
 let questionNumber = 0;
 let userChoice;
+let timerInterval;
+let userScore;
 
 // Event to start quiz 
 startButton.addEventListener("click", function() {
@@ -103,10 +106,13 @@ function displayChoices() {
 }
 
 function nextQuestion() {
-  questionNumber++;
-  console.log(questionNumber);
-  clearChoiceButtons();
-  displayQuestion();
+  if (questionNumber < 4) {
+    questionNumber++;
+    clearChoiceButtons();
+    displayQuestion();
+  } else {
+    endQuiz();
+  }
 }
 
 function clearChoiceButtons() {
@@ -117,18 +123,31 @@ function clearChoiceButtons() {
   }
 }
 
+function endQuiz() {
+  stopTimer();
+  console.log(userScore);
+}
+
 // this is for the timer at the top right corner
 function startTimer() {
   // Sets interval in variable
-  const timerInterval = setInterval(function() {
+  timerInterval = setInterval(function() {
     secondsLeft--;
     displayTimeLeft.textContent = `Time: ${secondsLeft}`;
 
     if(secondsLeft == 0) {
       // Stops execution of action
       clearInterval(timerInterval);
-      // Calls to end quiz
+      endQuiz();
       return;
     }
   }, 1000);
 }
+
+// stops timer ay any point
+function stopTimer() {
+  clearInterval(timerInterval);
+  console.log(`Timer stopped with ${secondsLeft} seconds left`);
+  userScore = secondsLeft;
+}
+
