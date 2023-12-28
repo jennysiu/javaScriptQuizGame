@@ -27,7 +27,7 @@
 
 import { quizQuestions } from './questions.js';
 
-// Query selectors
+// *** Query selectors
 const displayTimeLeft = document.querySelector(".timer");
 
 // start screen section
@@ -42,13 +42,46 @@ const choicesSection = document.querySelector("#choices");
 // end screen section 
 const endScreenSection = document.querySelector("#end-screen");
 const finalScore = document.querySelector("#final-score");
+const userInitials = document.querySelector("#initials");
+const messageDiv = document.querySelector("#message");
+const submitButton = document.querySelector("#submit");
 
-// assign global variables
+// *** assign global variables
 let secondsLeft = 60;
 let questionNumber = 0;
 let userChoice;
 let timerInterval;
 let userScore;
+
+// this is for the timer at the top right corner
+function startTimer() {
+  // Sets interval in variable
+  timerInterval = setInterval(function() {
+    secondsLeft--;
+    displayTimeLeft.textContent = `Time: ${secondsLeft}`;
+
+    if(secondsLeft == 0) {
+      // Stops execution of action
+      clearInterval(timerInterval);
+      endQuiz();
+      return;
+    }
+  }, 1000);
+}
+
+// to stop the timer at any point
+function stopTimer() {
+  clearInterval(timerInterval);
+  console.log(`Timer stopped with ${secondsLeft} seconds left`);
+  userScore = secondsLeft;
+}
+
+// displays message - setting a type so that I can style later depending on class type
+function displayMessage(type, message) {
+  messageDiv.textContent = message;
+  messageDiv.setAttribute("class", type);
+}
+
 
 // Event to start quiz 
 startButton.addEventListener("click", function() {
@@ -120,7 +153,7 @@ function nextQuestion() {
 
 function clearChoiceButtons() {
   // remove any existing choice buttons
-  const choiceButtons = document.querySelectorAll("button");
+  const choiceButtons = document.querySelectorAll(".choices button");
   for (const button of choiceButtons) {
     button.remove(); // Remove all buttons
   }
@@ -141,32 +174,23 @@ function displayEndScreen() {
 
   // display final score
   finalScore.textContent = (userScore);
-  finalScore.appendChild(finalScore)
 
-  
-
-}
-
-// this is for the timer at the top right corner
-function startTimer() {
-  // Sets interval in variable
-  timerInterval = setInterval(function() {
-    secondsLeft--;
-    displayTimeLeft.textContent = `Time: ${secondsLeft}`;
-
-    if(secondsLeft == 0) {
-      // Stops execution of action
-      clearInterval(timerInterval);
-      endQuiz();
-      return;
+  // submit user initials
+  submitButton.addEventListener("click", function() {
+    const userDetails = {
+      initials: userInitials.value.trim(),
+      score: userScore
     }
-  }, 1000);
-}
 
-// stops timer ay any point
-function stopTimer() {
-  clearInterval(timerInterval);
-  console.log(`Timer stopped with ${secondsLeft} seconds left`);
-  userScore = secondsLeft;
+    // validate user input
+    if (userDetails.initials === "") {
+      displayMessage("error", "Initials cannot be blank");
+    } else {
+      displayMessage("success", "Initials and final score recorded successfully")
+      // store initials and final score in local storage
+      localStorage.setItem("userDetails", userDetails);
+      console.log(userDetails);
+    }
+  })
 }
 
