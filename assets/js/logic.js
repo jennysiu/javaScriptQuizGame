@@ -39,6 +39,83 @@ const questionsSection = document.querySelector("#questions")
 const questionTitle = document.querySelector("#question-title")
 
 let secondsLeft = 60;
+let questionNumber = 0;
+let userChoice;
+
+// Event to start quiz 
+startButton.addEventListener("click", function() {
+  startTimer();
+
+  // hide the landing page
+  landingPage.className = "hide";
+
+  displayQuestion()
+})
+
+function displayQuestion() {
+  
+  // set questions class attribute to start (so question displays)
+  questionsSection.className = "start";
+
+  // display question
+  let question = quizQuestions[questionNumber].question;
+  questionTitle.textContent = `Question ${questionNumber + 1}: ${question}`;
+
+  displayChoices();
+}
+
+// display choices
+function displayChoices() {
+  let choices = quizQuestions[questionNumber].choices;
+
+  for (let i = 0; i < choices.length; i++) {
+
+    let choiceButton = document.createElement("button");
+    choiceButton.textContent = choices[i];
+    document.body.appendChild(choiceButton);
+    userChoice = choices[i]; 
+
+    // user's answer
+    choiceButton.addEventListener("click", function() {
+    userChoice = choices[i]; 
+    console.log("User selected: " + userChoice);
+      // compare answer
+      if (userChoice == quizQuestions[questionNumber].correctAnswer) {
+          
+          let displayResult = document.createElement("p");
+          displayResult.textContent = "Correct!";
+          document.body.appendChild(displayResult);
+          setTimeout(function() {
+            displayResult.textContent = ""; // Clear the text
+          }, 3000);
+          nextQuestion()
+        } else {
+          let displayResult = document.createElement("p");
+          displayResult.textContent = "Wrong!";
+          document.body.appendChild(displayResult);
+          setTimeout(function() {
+            displayResult.textContent = ""; // Clear the text
+          }, 3000);
+          nextQuestion();
+        }
+    })
+  }
+}
+
+function nextQuestion() {
+  questionNumber++;
+  console.log(questionNumber);
+  clearChoiceButtons();
+  displayQuestion();
+}
+
+function clearChoiceButtons() {
+  // remove any existing choice buttons
+  const choiceButtons = document.querySelectorAll("button");
+  for (const button of choiceButtons) {
+    button.remove(); // Remove all buttons
+  }
+}
 
 // this is for the timer at the top right corner
 function startTimer() {
@@ -55,65 +132,3 @@ function startTimer() {
     }
   }, 1000);
 }
-
-// Event to start quiz 
-startButton.addEventListener("click", function() {
-  startTimer();
-
-  // hide the landing page
-  landingPage.className = "hide";
-
-  displayQuestion()
-})
-
-let questionNumber = 0;
-let userChoice;
-
-function displayQuestion() {
-  // set questions class attribute to start (so question displays)
-  questionsSection.className = "start";
-
-  // display question
-  let question = quizQuestions[questionNumber].question;
-  questionTitle.textContent = `Question ${questionNumber + 1}: ${question}`;
-
-  // display choices
-  let choices = quizQuestions[questionNumber].choices;
-
-  for (let i = 0; i < choices.length; i++) {
-    let choiceButton = document.createElement("button");
-    choiceButton.textContent = choices[i];
-    document.body.appendChild(choiceButton);
-    userChoice = choices[i]; 
-
-    // user's answer
-    choiceButton.addEventListener("click", function() {
-    userChoice = choices[i]; 
-    console.log("User selected: " + userChoice);
-      // compare answer
-      if (userChoice == quizQuestions[0].correctAnswer) {
-          console.log("Correct!")
-        } else {
-          console.log("Wrong.")
-        }
-    
-    nextQuestion()
-    })
-  }
-
-  
-
-}
-
-
-
-    // if (generateChoices(choices) = quizQuestions[0].correctAnswer) {
-    //   console.log("Correct!")
-    // } else {
-    //   console.log("Wrong.")
-    // }
-    
-    // add logic for correct answer
-    // if (userChoice == quizQuestions[i].correctAnswer) {
-    //   console.log(quizQuestions[i].correctAnswer);
-    // }
