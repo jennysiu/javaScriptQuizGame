@@ -14,10 +14,10 @@
 //   !either way, the question dissapears after a few seconds and the next question appears
 
 // for the last question:
-//   timer stops
-//   question disappears
-//   form appears for user to enter their initials
-//   display their score
+//   !timer stops
+//   !question disappears
+//   !form appears for user to enter their initials
+//   !display their score
 
 // user submits form 
 //   initials and score gets scored in local storage 
@@ -28,15 +28,20 @@
 import { quizQuestions } from './questions.js';
 
 // Query selectors
-const displayTimeLeft = document.querySelector(".timer")
+const displayTimeLeft = document.querySelector(".timer");
 
-// start screen
+// start screen section
 const startButton = document.querySelector("#start");
 const landingPage = document.querySelector("#start-screen");
 
-// questions
-const questionsSection = document.querySelector("#questions")
-const questionTitle = document.querySelector("#question-title")
+// questions section
+const questionsSection = document.querySelector("#questions");
+const questionTitle = document.querySelector("#question-title");
+const choicesSection = document.querySelector("#choices");
+
+// end screen section 
+const endScreenSection = document.querySelector("#end-screen");
+const finalScore = document.querySelector("#final-score");
 
 // assign global variables
 let secondsLeft = 60;
@@ -56,7 +61,6 @@ startButton.addEventListener("click", function() {
 })
 
 function displayQuestion() {
-  
   // set questions class attribute to start (so question displays)
   questionsSection.className = "start";
 
@@ -75,8 +79,7 @@ function displayChoices() {
 
     let choiceButton = document.createElement("button");
     choiceButton.textContent = choices[i];
-    document.body.appendChild(choiceButton);
-    userChoice = choices[i]; 
+    choicesSection.appendChild(choiceButton);
 
     // user's choice
     choiceButton.addEventListener("click", function() {
@@ -125,7 +128,23 @@ function clearChoiceButtons() {
 
 function endQuiz() {
   stopTimer();
-  console.log(userScore);
+  // test to see if userScore was saved properly
+  // console.log(userScore);
+
+  // hide the questions section 
+  questionsSection.className = "hide";
+  displayEndScreen();
+}
+
+function displayEndScreen() {
+  endScreenSection.className = "start";
+
+  // display final score
+  finalScore.textContent = (userScore);
+  finalScore.appendChild(finalScore)
+
+  
+
 }
 
 // this is for the timer at the top right corner
