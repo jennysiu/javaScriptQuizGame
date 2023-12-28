@@ -20,8 +20,8 @@
 //   !display their score
 
 // user submits form 
-//   initials and score gets scored in local storage 
-//   user is taken to the high scores page 
+//   !initials and score gets scored in local storage 
+//   !user is taken to the high scores page 
 //   high scored are listed, sorted highest to lowest
 //   USER HAS OPTION TO TAKE THE QUIZ AGAIN-->
 
@@ -46,12 +46,15 @@ const userInitials = document.querySelector("#initials");
 const messageDiv = document.querySelector("#message");
 const submitButton = document.querySelector("#submit");
 
+
 // *** assign global variables
 let secondsLeft = 60;
 let questionNumber = 0;
 let userChoice;
 let timerInterval;
 let userScore;
+let userDetails;
+let allUsers;
 
 // this is for the timer at the top right corner
 function startTimer() {
@@ -170,6 +173,7 @@ function endQuiz() {
 }
 
 function displayEndScreen() {
+  // unhide end screen section
   endScreenSection.className = "start";
 
   // display final score
@@ -177,7 +181,7 @@ function displayEndScreen() {
 
   // submit user initials
   submitButton.addEventListener("click", function() {
-    const userDetails = {
+    userDetails = {
       initials: userInitials.value.trim(),
       score: userScore
     }
@@ -188,9 +192,23 @@ function displayEndScreen() {
     } else {
       displayMessage("success", "Initials and final score recorded successfully")
       // store initials and final score in local storage
-      localStorage.setItem("userDetails", userDetails);
+      localStorage.setItem("userDetails", JSON.stringify(userDetails));
       console.log(userDetails);
+
+      // button to view high scores
+      let viewHighscoresButton = document.createElement("button");
+      viewHighscoresButton.textContent = "View Highscores";
+      endScreenSection.appendChild(viewHighscoresButton);
+      // when clicked, brings user to high scores section
+      viewHighscoresButton.addEventListener("click", function() {
+        window.location.href = "/highscores.html"
+      })
     }
+
+    // merge to all user details
+    allUsers = { ...userDetails, ...allUsers} 
+    console.log(allUsers);
+    
   })
 }
 
