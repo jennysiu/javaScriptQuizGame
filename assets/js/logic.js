@@ -1,15 +1,15 @@
 
 
 // click the start button
-//   landing page goes away
-//   timer starts
-//   first question appears (with its answers)
+//   !landing page goes away
+//   !timer starts
+//   !first question appears (with its answers)
 
 // for each question:
-//   user clicks and answer
+//   !user clicks and answer
 //   their choice is compared to the correct answer as stored in the question's object
-//   if corret, tell them
-//   if incorrect, tell them AND subtract ime from timer
+//   !if corret, tell them
+//   !if incorrect, tell them AND subtract ime from timer
 //   optional: play a sound for correct or incorrect 
 //   either way, the question dissapears after a few seconds and the next question appears
 
@@ -75,13 +75,12 @@ function displayChoices() {
     document.body.appendChild(choiceButton);
     userChoice = choices[i]; 
 
-    // user's answer
+    // user's choice
     choiceButton.addEventListener("click", function() {
     userChoice = choices[i]; 
     console.log("User selected: " + userChoice);
       // compare answer
       if (userChoice == quizQuestions[questionNumber].correctAnswer) {
-          
           let displayResult = document.createElement("p");
           displayResult.textContent = "Correct!";
           document.body.appendChild(displayResult);
@@ -90,6 +89,7 @@ function displayChoices() {
           }, 3000);
           nextQuestion()
         } else {
+          secondsLeft -= 10;
           let displayResult = document.createElement("p");
           displayResult.textContent = "Wrong!";
           document.body.appendChild(displayResult);
