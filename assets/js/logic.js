@@ -58,6 +58,24 @@ function displayMessage(type, message) {
   messageDiv.setAttribute("class", type);
 }
 
+function displayResult(message) {
+  // create a temporary divider
+  const divider = document.createElement("div");
+  divider.className = "divider";
+  document.body.appendChild(divider);
+  
+  let displayResult = document.createElement("p");
+  displayResult.className = "displayResult";
+  displayResult.textContent = message;
+  document.body.appendChild(displayResult);
+  // remove after 1 second
+  setTimeout(function() {
+    displayResult.textContent = ""; // Clear the text
+    divider.remove();
+  }, 5000);
+  console.log(secondsLeft)
+}
+
 // Event to start quiz 
 startButton.addEventListener("click", function() {
   // hide the landing page
@@ -97,23 +115,11 @@ function displayChoices() {
     console.log("User selected: " + userChoice);
       // compare answer
       if (userChoice == quizQuestions[questionNumber].correctAnswer) {
-          let displayResult = document.createElement("p");
-          displayResult.textContent = "Correct!";
-          document.body.appendChild(displayResult);
-          setTimeout(function() {
-            displayResult.textContent = ""; // Clear the text
-          }, 3000);
-          console.log(secondsLeft)
+          displayResult("correct!");
           nextQuestion()
         } else {
           secondsLeft -= 10;
-          let displayResult = document.createElement("p");
-          displayResult.textContent = "Wrong!";
-          document.body.appendChild(displayResult);
-          setTimeout(function() {
-            displayResult.textContent = ""; // Clear the text
-          }, 3000);
-          console.log(secondsLeft)
+          displayResult("wrong!")
           nextQuestion();
         }
     })
@@ -170,12 +176,11 @@ submitButton.addEventListener("click", function() {
     displayMessage("error", "Initials cannot be blank");
   } else {
     displayMessage("success", "Initials and final score recorded successfully")
+    saveUserDetails(userDetails);
+    // clear initials from textbox
+    userInitials.value = "";
+    playAgain();
   }
-
-  saveUserDetails(userDetails);
-  // clear initials from textbox
-  userInitials.value = "";
-  playAgain();
 })
 
 function saveUserDetails(userDetails) {
