@@ -14,7 +14,7 @@ renderHighscores();
 function renderHighscores() {
   // retrieve from local storage 
   highscores = JSON.parse(localStorage.getItem("localHighscores"));
-  // sort arrar descending 
+  // sort array descending 
   highscores.sort((a, b) => b.score - a.score);
   console.log(highscores);
   
@@ -35,6 +35,5 @@ clearHighScoresButton.addEventListener("click", function() {
   for (const item of highscoreItems) {
     item.remove(); // Remove all buttons
     }
-  
 })
 

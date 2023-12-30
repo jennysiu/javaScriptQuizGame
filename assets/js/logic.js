@@ -1,33 +1,5 @@
-
-
-// click the start button
-//   !landing page goes away
-//   !timer starts
-//   !first question appears (with its answers)
-
-// for each question:
-//   !user clicks and answer
-//   !their choice is compared to the correct answer as stored in the question's object
-//   !if corret, tell them
-//   !if incorrect, tell them AND subtract ime from timer
-//   optional: play a sound for correct or incorrect 
-//   !either way, the question dissapears after a few seconds and the next question appears
-
-// for the last question:
-//   !timer stops
-//   !question disappears
-//   !form appears for user to enter their initials
-//   !display their score
-
-// user submits form 
-//   !initials and score gets scored in local storage 
-//   !user is taken to the high scores page 
-//   high scored are listed, sorted highest to lowest
-//   USER HAS OPTION TO TAKE THE QUIZ AGAIN-->
-
-import { quizQuestions } from './questions.js';
 // import { addNewScore } from './scores.js';
-
+import { quizQuestions } from './questions.js';
 
 // *** Query selectors
 const displayTimeLeft = document.querySelector(".timer");
@@ -48,7 +20,6 @@ const userInitials = document.querySelector("#initials");
 const messageDiv = document.querySelector("#message");
 const submitButton = document.querySelector("#submit");
 
-
 // *** assign global variables
 let secondsLeft = 60;
 let questionNumber = 0;
@@ -57,7 +28,6 @@ let timerInterval;
 let userScore;
 let userDetails;
 let highscores = [];
-
 
 // this is to start the timer at the top right corner
 function startTimer() {
@@ -94,7 +64,6 @@ startButton.addEventListener("click", function() {
   // hide the landing page
   landingPage.className = "hide";
   startQuiz();
-
 })
 
 function startQuiz() {
@@ -113,7 +82,6 @@ function displayQuestion() {
   displayChoices();
 }
 
-// display choices
 function displayChoices() {
   let choices = quizQuestions[questionNumber].choices;
   // clear any existing buttons
@@ -150,9 +118,6 @@ function displayChoices() {
           nextQuestion();
         }
     })
-
-    
-
   }
 }
 
@@ -175,9 +140,7 @@ function clearChoiceButtons() {
 }
 
 function endQuiz() {
-
-
-  // hide the questions section 
+  // hide the questions section & display end screen
   questionsSection.className = "hide";
   displayEndScreen();
 }
@@ -187,7 +150,7 @@ function displayEndScreen() {
   endScreenSection.className = "start";
 
   stopTimer();
-  // display time left (as theres a time lag between timer and actual time deducted)
+  // display time left (as there's a time lag between timer and actual time deducted)
   displayTimeLeft.textContent = `Time: ${secondsLeft}`;
   // display final score
   finalScore.textContent = (userScore);
@@ -214,18 +177,16 @@ submitButton.addEventListener("click", function() {
   // clear initials from textbox
   userInitials.value = "";
   playAgain();
-  
 })
 
 function saveUserDetails(userDetails) {
   // retrieve storedHighscores from localstorage (if not empty) 
   let storedHighscores = JSON.parse(localStorage.getItem("localHighscores"));
-
   // If localHighscores were retrieved from localStorage, update the highscores array to it
   if (storedHighscores !== null) {
     highscores = storedHighscores;
   }
-  
+
   // add userDetails to highscores array
   highscores.push(userDetails);
   // test to see if added correctly
@@ -237,7 +198,6 @@ function saveUserDetails(userDetails) {
 function storeHighscores(storedHighscores) {
   storedHighscores = localStorage.setItem("localHighscores", JSON.stringify(highscores));
   console.log(storeHighscores)
-
 }
 
 function playAgain() {
