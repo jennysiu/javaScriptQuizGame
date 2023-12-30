@@ -14,9 +14,15 @@ renderHighscores();
 function renderHighscores() {
   // retrieve from local storage 
   highscores = JSON.parse(localStorage.getItem("localHighscores"));
-
   console.log(highscores);
+  let highscoresWithSpaces = highscores.join(" ")
+  
+  for (let i = 0; i < highscores.length; i++) {
 
+    let highscoreItem = document.createElement("li");
+    highscoreItem.textContent = `${highscores[i].initials}, Score: ${highscores[i].score}`
+    highscoresList.appendChild(highscoreItem)
+  }
 }
 
 
