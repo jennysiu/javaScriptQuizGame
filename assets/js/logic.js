@@ -217,21 +217,6 @@ submitButton.addEventListener("click", function() {
   
 })
 
-function playAgain() {
-  // create button to play again
-  let playAgainButton = document.createElement("button");
-  playAgainButton.textContent = "Play again";
-  endScreenSection.appendChild(playAgainButton);
-  // when clicked, hides end screen and preps to starts new game
-  playAgainButton.addEventListener("click", function() {
-    endScreenSection.className = "hide";
-    // clear play again button
-    playAgainButton.remove();
-    startQuiz();
-  })  
-}
-
-
 function saveUserDetails(userDetails) {
   // retrieve storedHighscores from localstorage (if not empty) 
   let storedHighscores = JSON.parse(localStorage.getItem("localHighscores"));
@@ -255,3 +240,16 @@ function storeHighscores(storedHighscores) {
 
 }
 
+function playAgain() {
+  // create button to play again
+  let playAgainButton = document.createElement("button");
+  playAgainButton.textContent = "Play again";
+  endScreenSection.appendChild(playAgainButton);
+  // when clicked, hides end screen and preps to starts new game
+  playAgainButton.addEventListener("click", function() {
+    endScreenSection.className = "hide";
+    // clear play again button
+    playAgainButton.remove();
+    startQuiz();
+  })  
+}
