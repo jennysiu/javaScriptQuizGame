@@ -58,7 +58,6 @@ function displayMessage(type, message) {
   messageDiv.setAttribute("class", type);
 }
 
-
 // Event to start quiz 
 startButton.addEventListener("click", function() {
   // hide the landing page
@@ -78,7 +77,7 @@ function displayQuestion() {
   questionsSection.className = "start";
   // display question
   let question = quizQuestions[questionNumber].question;
-  questionTitle.textContent = `Question ${questionNumber + 1}: ${question}`;
+  questionTitle.innerHTML = `Question ${questionNumber + 1} <br> ${question}`;
   displayChoices();
 }
 
@@ -89,7 +88,7 @@ function displayChoices() {
 
   for (let i = 0; i < choices.length; i++) {
     let choiceButton = document.createElement("button");
-    choiceButton.textContent = choices[i];
+    choiceButton.textContent = `${i + 1}. ${choices[i]}`
     choicesSection.appendChild(choiceButton);
 
     // user's choice
