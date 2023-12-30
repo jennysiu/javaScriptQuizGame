@@ -86,3 +86,17 @@ li:nth-child(odd) {
   top: 10px;
   right: 10px;
 }
+
+/* custom styling */
+
+.divider {
+  border-top: solid #ddcef4;
+  margin-left: 3%;
+  margin-right: 3%;
+  margin-top: 3%;
+}
+
+.displayResult {
+  margin-left: 3%;
+  color: rgb(84, 84, 84);
+}
