@@ -1,23 +1,29 @@
+//   high scored are listed, sorted highest to lowest
+//   USER HAS OPTION TO TAKE THE QUIZ AGAIN-->
+
 // query selectors
 const highscoresList = document.querySelector("#highscores");
-const clearHighScores = document.querySelector("#clear");
+const clearHighScoresButton = document.querySelector("#clear");
 
-// retrive data from local storage 
-let userDetails = JSON.parse(localStorage.getItem('userDetails')) || [];
-// test to see data was retrieved correctly
-console.log(userDetails.initials);
-// console.log('userDetails:', userDetails);
+// assign global variables 
+let highscores = [];
 
+renderHighscores();
 
-function addNewScore() {
-  let highScoresItem = document.createElement("li");
-  console.log(`Initials: ${userDetails.initials}, Score: ${userDetails.score}`)
-  highScoresItem.textContent = `${userDetails.initials}, Score: ${userDetails.score}`;
-  highscoresList.appendChild(highScoresItem);
+// render highscores
+function renderHighscores() {
+  // retrieve from local storage 
+  highscores = JSON.parse(localStorage.getItem("localHighscores"));
+
+  console.log(highscores);
+
 }
 
-addNewScore();
 
-clearHighScores.addEventListener("click", function() {
+clearHighScoresButton.addEventListener("click", function() {
+  highscores = [];
+  // Update the local storage
+  localStorage.setItem('highscores', JSON.stringify(highscores));
 
 })
+
