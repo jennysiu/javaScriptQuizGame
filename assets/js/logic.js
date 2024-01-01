@@ -17,6 +17,7 @@ const choicesSection = document.querySelector("#choices");
 const endScreenSection = document.querySelector("#end-screen");
 const endScreenH2 = document.querySelector("#end-screen h2");
 const endScreenP = document.querySelectorAll("#end-screen p")
+const enterInitialsArea = document.querySelector("#enter-initials-area");
 const finalScore = document.querySelector("#final-score");
 const userInitials = document.querySelector("#initials");
 const messageDiv = document.querySelector("#message");
@@ -193,9 +194,9 @@ submitButton.addEventListener("click", function() {
     displayMessage("error", "Initials cannot be blank");
   } else {
     displayMessage("success", "Initials and final score recorded successfully")
+    // remove submit initials area once initials have been submitted
+    enterInitialsArea.className = "hide";
     saveUserDetails(userDetails);
-    // clear initials from textbox
-    userInitials.value = "";
     playAgain();
   }
 })
