@@ -15,6 +15,8 @@ const choicesSection = document.querySelector("#choices");
 
 // end screen section 
 const endScreenSection = document.querySelector("#end-screen");
+const endScreenH2 = document.querySelector("#end-screen h2");
+const endScreenP = document.querySelectorAll("#end-screen p")
 const finalScore = document.querySelector("#final-score");
 const userInitials = document.querySelector("#initials");
 const messageDiv = document.querySelector("#message");
@@ -36,10 +38,11 @@ function startTimer() {
     secondsLeft--;
     displayTimeLeft.textContent = `Time: ${secondsLeft}`;
 
-    if(secondsLeft == 0) {
+    if(secondsLeft <= 0) {
       // Stops execution of action
       clearInterval(timerInterval);
-      endQuiz();
+      randOutOfTime();
+
       return;
     }
   }, 1000);
@@ -144,10 +147,24 @@ function clearChoiceButtons() {
   }
 }
 
+function randOutOfTime() {
+  endQuiz();
+  endScreenH2.textContent = "Ran out of time!"
+  
+  // hide section to enter initials
+  endScreenP.forEach(p => {
+    p.className = "hide";
+  }); 
+  // show option to play again
+  playAgain();
+
+}
+
 function endQuiz() {
   // hide the questions section & display end screen
   questionsSection.className = "hide";
   displayEndScreen();
+
 }
 
 function displayEndScreen() {
